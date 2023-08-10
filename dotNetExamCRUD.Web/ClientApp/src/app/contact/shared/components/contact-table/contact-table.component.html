@@ -1,0 +1,92 @@
+<h3 class="title mb-2 mt-2">Contact Table</h3>
+<hr/>
+
+<details>
+  <summary>Click to show filters</summary>
+ <div class="row mb-2">
+    <div class="form-group col-6">
+      <label for="fname">First Name</label>
+      <input type="text" placeholder="Enter FirstName" [(ngModel)]="contactFilter.firstName" class="form-control" id="fname" required>
+    </div>
+    <div class="form-group col-6">
+      <label for="lname">Last Name</label>
+      <input type="text" placeholder="Enter LastName" [(ngModel)]="contactFilter.lastName" class="form-control" id="lname" required>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="form-group col-6">
+      <label for="compName">Company Name</label>
+      <input type="text" placeholder="Enter company name" [(ngModel)]="contactFilter.companyName" class="form-control" id="compName" >
+    </div>
+    <div class="form-group col-6">
+      <label for="email">Email</label>
+      <input type="text" placeholder="Enter email number" [(ngModel)]="contactFilter.email" class="form-control" id="email">
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="form-group col-6">
+      <label for="cnumber">Contact Number</label>
+      <input type="text" placeholder="Enter contact number" [(ngModel)]="contactFilter.contactNumber" (keypress)="keyPress($event)" minlength=10 maxlength=13 class="form-control" id="cnumber">
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="row">
+      <div class="col text-center">
+        <button type="submit" class="btn btn-sm btn-primary"(click)="search()" >Search</button>
+      </div>
+    </div>
+  </div>
+</details>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Company Name</th>
+      <th>Email</th>
+      <th>Contact Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="contacts.length == 0">
+    <tr>
+      <td colspan="5" style="text-align: center;">No data found</td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="contacts.length > 0">
+    <tr *ngFor="let contact of contacts | paginate : {
+            itemsPerPage: 10,
+            currentPage: pageIndex,
+            totalItems: totalCount
+          };">
+      <td>{{contact.firstName}}</td>
+      <td>{{contact.lastName}}</td>
+      <td>{{contact.companyName}}</td>
+      <td>{{contact.email}}</td>
+      <td>{{contact.contactNumber}}</td>
+      <td>
+        <div class="row">
+          <div class="col-6">
+            <button type="submit" class="btn btn-sm btn-primary" (click)="onClickEdit(contact)">Edit</button>
+          </div>
+          <div class="col-6">
+            <button type="submit" class="btn btn-sm btn-danger" (click)="deleteContact(contact)">Delete</button>
+          </div>
+        </div>
+    </td>
+    </tr>
+  </tbody>
+
+</table>
+<div class="row float-end" *ngIf="contacts.length > 0">
+  <pagination-controls
+  class="col-12"
+    previousLabel="&#60;-"
+    nextLabel="->"
+    [responsive]="true"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>
+
+<hr class="mb-2"/>

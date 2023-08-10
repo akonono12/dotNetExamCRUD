@@ -1,0 +1,23 @@
+<h1>
+  Contact
+</h1>
+
+<p>This is a simple CRUD web application.</p>
+<div class="col-md-12 mb-3">
+  <div class="row mb-4" >
+    <div class="col-md-6 col-lg-6" >
+      <app-contact-form [contact]="contact"></app-contact-form>
+      <div class="row">
+        <div class="col text-center">
+          <button type="submit" class="btn btn-sm btn-primary"(click)="save()" >Save</button>
+        </div>
+      </div>
+    <hr class="mb-2"/>
+     </div>
+     <div class="col-md-6 col-lg-6" >
+      <app-contact-table #table (edit)="mappedModel($event)"></app-contact-table>
+     </div>
+  </div>
+
+
+</div>
